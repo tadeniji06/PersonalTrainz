@@ -28,9 +28,9 @@
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body {
+html {
   height: 100%;
-  overflow: hidden;
+  height: -webkit-fill-available;
 }
 
 body {
@@ -39,16 +39,29 @@ body {
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Fill the full mobile screen including safe areas */
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  min-height: 100dvh;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
 
 /* ── App Shell ── */
 #app {
   display: flex;
   flex-direction: column;
+  height: 100vh;
   height: 100dvh;
+  /* Respect notch/status bar at top */
+  padding-top: env(safe-area-inset-top, 0px);
   max-width: 480px;
   margin: 0 auto;
   position: relative;
+  overflow: hidden;
 }
 
 /* ── Header ── */
@@ -156,19 +169,31 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, opacity 0.15s;
   flex-shrink: 0;
   background: transparent;
   padding: 0 10px;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  position: relative;
 }
 
-.day-tab:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-strong);
+/* ── Locked (non-today) tabs ── */
+.day-tab.locked {
+  opacity: 0.28;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
+.day-tab.locked .day-tab-letter {
+  color: var(--text-muted);
+}
+
+.day-tab.locked .day-tab-label {
+  color: var(--text-muted);
+}
+
+/* Today tab — active highlight */
 .day-tab.active {
   background: var(--text-primary);
   border-color: var(--text-primary);
@@ -224,14 +249,28 @@ body {
   background: var(--bg);
 }
 
+/* Lock icon overlay on tab */
+.day-tab-lock {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  font-size: 7px;
+  opacity: 0.6;
+  color: var(--text-muted);
+  line-height: 1;
+}
+
 /* ── Main Content ── */
 #main-content {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 0 0 calc(20px + var(--safe-b)) 0;
+  /* Bottom padding accounts for iOS home indicator */
+  padding: 0 0 calc(env(safe-area-inset-bottom, 16px) + 16px) 0;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 #main-content::-webkit-scrollbar { display: none; }
@@ -585,7 +624,7 @@ body {
   border: 1px solid var(--border-strong);
   border-bottom: none;
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  padding: 24px 24px calc(24px + var(--safe-b));
+  padding: 24px 24px calc(env(safe-area-inset-bottom, 16px) + 24px);
   transform: translateY(0);
   transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
 }
@@ -769,11 +808,22 @@ body {
 
 /* ── Scrollable container for mobile ── */
 @media (max-width: 480px) {
-  .day-tabs { padding: 0 12px; }
-  .day-header { padding: 16px 16px 12px; }
-  .day-progress-bar-wrap { padding: 0 16px 12px; }
-  .section-label { padding: 8px 16px; }
-  .exercise-card { padding: 14px 16px; }
+  #day-tabs   { padding: 0 12px; }
+  .day-header { padding: 14px 16px 10px; }
+  .day-progress-bar-wrap { padding: 0 16px 10px; }
+  .section-label { padding: 6px 16px; }
+  .exercise-card { padding: 13px 16px; }
+  .exercise-name { font-size: 14px; }
+  .exercise-detail { font-size: 12px; }
+  .day-name { font-size: 24px; }
   .timer-sheet { border-radius: 16px 16px 0 0; }
-  .timer-digits { font-size: 72px; }
+  .timer-digits { font-size: 68px; letter-spacing: -3px; }
+}
+
+/* Very small screens (320px) */
+@media (max-width: 360px) {
+  .day-name { font-size: 20px; }
+  .timer-digits { font-size: 56px; }
+  .day-stats { gap: 8px; }
+  .stat-pill { font-size: 11px; padding: 3px 8px; }
 }

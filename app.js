@@ -135,7 +135,7 @@ const DAYS = [
 
 // ── State ────────────────────────────────────────────────────
 const todayIndex = new Date().getDay(); // 0=Sun … 6=Sat
-let activeDay = todayIndex;
+let activeDay = todayIndex;             // always locked to today
 let completedExercises = loadCompleted();
 
 // Timer state
@@ -192,31 +192,38 @@ function renderTabs() {
   container.innerHTML = '';
 
   DAYS.forEach((day, index) => {
+    const isToday  = index === todayIndex;
+    const isLocked = !isToday;
+
     const tab = document.createElement('button');
     tab.className = 'day-tab';
     if (day.isRest) tab.classList.add('rest-tab');
-    if (index === activeDay) tab.classList.add('active');
-    if (index === todayIndex) tab.classList.add('today-indicator');
-    tab.setAttribute('aria-label', day.name);
-    tab.setAttribute('role', 'tab');
+    if (isToday)    tab.classList.add('active', 'today-indicator');
+    if (isLocked)   tab.classList.add('locked');
 
-    const todayDot = (index === todayIndex)
-      ? `<span class="today-dot"></span>`
-      : '';
+    tab.setAttribute('aria-label', isLocked ? `${day.name} — locked` : day.name);
+    tab.setAttribute('role', 'tab');
+    tab.setAttribute('aria-selected', isToday ? 'true' : 'false');
+    tab.disabled = isLocked;
+
+    const todayDot = isToday  ? `<span class="today-dot"></span>` : '';
+    const lockIcon = isLocked ? `<span class="day-tab-lock" aria-hidden="true">🔒</span>` : '';
 
     tab.innerHTML = `
       <span class="day-tab-letter">${day.letter}</span>
       <span class="day-tab-label">${day.key.toUpperCase()}</span>
       ${todayDot}
+      ${lockIcon}
     `;
 
-    tab.addEventListener('click', () => {
-      activeDay = index;
-      stopTimer();
-      render();
-      // scroll active tab into view
-      tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-    });
+    // Only today's tab is interactive
+    if (isToday) {
+      tab.addEventListener('click', () => {
+        stopTimer();
+        render();
+        tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      });
+    }
 
     container.appendChild(tab);
   });

@@ -1,5 +1,5 @@
 // PersonalTrainz — Service Worker
-const CACHE_NAME = 'personaltrainz-v1';
+const CACHE_NAME = 'personaltrainz-v2';
 const ASSETS = [
   '/',
   '/index.html',
