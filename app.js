@@ -4,6 +4,10 @@
 
 // ── Workout Data ────────────────────────────────────────────
 // Categories: stretch | abs | push | legs | arms
+// Note: Stretches now appear ONLY on Monday & Saturday (30 sec / 3 sets each).
+// Cat Pose has been removed entirely. Reps have been bumped up across the
+// board for more intensity, and the final exercise of every day is a
+// to-failure finisher.
 const DAYS = [
   {
     key: 'sun',
@@ -20,16 +24,15 @@ const DAYS = [
     subtitle: 'Chest & Core',
     isRest: false,
     exercises: [
-      { id: 'mon_1',  name: 'Toe Stretching Hold',      detail: '30 sec · 4 sets',  type: 'timed', duration: 30,  sets: 4, category: 'stretch' },
-      { id: 'mon_2',  name: 'Cat Pose',                  detail: '1 min hold',        type: 'timed', duration: 60,  sets: 1, category: 'stretch' },
-      { id: 'mon_3',  name: 'Squats',                    detail: '30 reps',           type: 'reps',  reps: 30,             category: 'legs'    },
-      { id: 'mon_4',  name: 'Diamond Push-ups',          detail: '30 reps',           type: 'reps',  reps: 30,             category: 'push'    },
-      { id: 'mon_5',  name: 'Declined Push-ups',         detail: '20 reps',           type: 'reps',  reps: 20,             category: 'push'    },
-      { id: 'mon_6',  name: 'Plank',                     detail: '2 min hold',        type: 'timed', duration: 120, sets: 1, category: 'abs'     },
-      { id: 'mon_7',  name: 'Seated In-outs',            detail: '30 reps',           type: 'reps',  reps: 30,             category: 'abs'     },
-      { id: 'mon_8',  name: 'Leg Raises',                detail: '30 reps',           type: 'reps',  reps: 30,             category: 'abs'     },
-      { id: 'mon_9',  name: 'Russian Twists',            detail: '20 reps',           type: 'reps',  reps: 20,             category: 'abs'     },
-      { id: 'mon_10', name: 'Cross Mountain Climbers',   detail: '40 reps',           type: 'reps',  reps: 40,             category: 'abs'     },
+      { id: 'mon_1', name: 'Toe Stretching Hold',    detail: '30 sec · 3 sets', type: 'timed', duration: 30,  sets: 3, category: 'stretch' },
+      { id: 'mon_2', name: 'Squats',                  detail: '40 reps',         type: 'reps',  reps: 40,             category: 'legs'    },
+      { id: 'mon_3', name: 'Diamond Push-ups',        detail: '45 reps',         type: 'reps',  reps: 45,             category: 'push'    },
+      { id: 'mon_4', name: 'Declined Push-ups',       detail: '35 reps',         type: 'reps',  reps: 35,             category: 'push'    },
+      { id: 'mon_5', name: 'Plank',                   detail: '2.5 min hold',    type: 'timed', duration: 150, sets: 1, category: 'abs'     },
+      { id: 'mon_6', name: 'Seated In-outs',          detail: '45 reps',         type: 'reps',  reps: 45,             category: 'abs'     },
+      { id: 'mon_7', name: 'Leg Raises',              detail: '45 reps',         type: 'reps',  reps: 45,             category: 'abs'     },
+      { id: 'mon_8', name: 'Russian Twists',          detail: '35 reps',         type: 'reps',  reps: 35,             category: 'abs'     },
+      { id: 'mon_9', name: 'Cross Mountain Climbers', detail: '60 reps',         type: 'reps',  reps: 60,             category: 'abs',    toFailure: true },
     ]
   },
   {
@@ -39,16 +42,14 @@ const DAYS = [
     subtitle: 'Shoulders & Core',
     isRest: false,
     exercises: [
-      { id: 'tue_1',  name: 'Seated Toe Stretching Hold', detail: '20 sec · 2 sets',  type: 'timed', duration: 20,  sets: 2, category: 'stretch' },
-      { id: 'tue_2',  name: 'Cat Pose',                   detail: '1 min hold',        type: 'timed', duration: 60,  sets: 1, category: 'stretch' },
-      { id: 'tue_3',  name: 'Squats',                     detail: '30 reps',           type: 'reps',  reps: 30,             category: 'legs'    },
-      { id: 'tue_4',  name: 'Pike Push-ups',              detail: '25 reps',           type: 'reps',  reps: 15,             category: 'push'    },
-      { id: 'tue_5',  name: 'Declined Push-ups',          detail: '20 reps',           type: 'reps',  reps: 20,             category: 'push'    },
-      { id: 'tue_6',  name: 'Plank',                      detail: '1 min hold',        type: 'timed', duration: 60,  sets: 1, category: 'abs'     },
-      { id: 'tue_7',  name: 'Seated In-outs',             detail: '30 reps',           type: 'reps',  reps: 30,             category: 'abs'     },
-      { id: 'tue_8',  name: 'Cross Mountain Climbers',    detail: '40 reps',           type: 'reps',  reps: 40,             category: 'abs'     },
-      { id: 'tue_9',  name: 'Russian Twists',             detail: '20 reps',           type: 'reps',  reps: 20,             category: 'abs'     },
-      { id: 'tue_10', name: 'Leg Raises',                 detail: '50 reps',           type: 'reps',  reps: 30,             category: 'abs'     },
+      { id: 'tue_1', name: 'Squats',                  detail: '40 reps',         type: 'reps',  reps: 40,             category: 'legs'    },
+      { id: 'tue_2', name: 'Pike Push-ups',           detail: '25 reps',         type: 'reps',  reps: 25,             category: 'push'    },
+      { id: 'tue_3', name: 'Declined Push-ups',       detail: '35 reps',         type: 'reps',  reps: 35,             category: 'push'    },
+      { id: 'tue_4', name: 'Plank',                   detail: '1.5 min hold',    type: 'timed', duration: 90,  sets: 1, category: 'abs'     },
+      { id: 'tue_5', name: 'Seated In-outs',          detail: '45 reps',         type: 'reps',  reps: 45,             category: 'abs'     },
+      { id: 'tue_6', name: 'Cross Mountain Climbers', detail: '60 reps',         type: 'reps',  reps: 60,             category: 'abs'     },
+      { id: 'tue_7', name: 'Russian Twists',          detail: '35 reps',         type: 'reps',  reps: 35,             category: 'abs'     },
+      { id: 'tue_8', name: 'Leg Raises',              detail: '45 reps',         type: 'reps',  reps: 45,             category: 'abs',    toFailure: true },
     ]
   },
   {
@@ -58,16 +59,14 @@ const DAYS = [
     subtitle: 'Triceps & Core',
     isRest: false,
     exercises: [
-      { id: 'wed_1',  name: 'Toe Stretching Hold',        detail: '30 sec · 4 sets',  type: 'timed', duration: 30,  sets: 4, category: 'stretch' },
-      { id: 'wed_2',  name: 'Cat Pose',                   detail: '1 min hold',        type: 'timed', duration: 60,  sets: 1, category: 'stretch' },
-      { id: 'wed_3',  name: 'Squats',                     detail: '40 reps',           type: 'reps',  reps: 30,             category: 'legs'    },
-      { id: 'wed_4',  name: 'Tricep Dips',                detail: '30 reps',           type: 'reps',  reps: 20,             category: 'arms'    },
-      { id: 'wed_5',  name: 'Diamond Push-ups',           detail: '30 reps',           type: 'reps',  reps: 30,             category: 'push'    },
-      { id: 'wed_6',  name: 'Plank',                      detail: '2 min hold',        type: 'timed', duration: 120, sets: 1, category: 'abs'     },
-      { id: 'wed_7',  name: 'Seated In-outs',             detail: '40 reps',           type: 'reps',  reps: 30,             category: 'abs'     },
-      { id: 'wed_8',  name: 'Leg Raises',                 detail: '40 reps',           type: 'reps',  reps: 30,             category: 'abs'     },
-      { id: 'wed_9',  name: 'Cross Mountain Climbers',    detail: '50 reps',           type: 'reps',  reps: 40,             category: 'abs'     },
-      { id: 'wed_10', name: 'Russian Twists',             detail: '40 reps',           type: 'reps',  reps: 20,             category: 'abs'     },
+      { id: 'wed_1', name: 'Squats',                  detail: '50 reps',         type: 'reps',  reps: 50,             category: 'legs'    },
+      { id: 'wed_2', name: 'Tricep Dips',             detail: '40 reps',         type: 'reps',  reps: 40,             category: 'arms'    },
+      { id: 'wed_3', name: 'Diamond Push-ups',        detail: '45 reps',         type: 'reps',  reps: 45,             category: 'push'    },
+      { id: 'wed_4', name: 'Plank',                   detail: '2.5 min hold',    type: 'timed', duration: 150, sets: 1, category: 'abs'     },
+      { id: 'wed_5', name: 'Seated In-outs',          detail: '55 reps',         type: 'reps',  reps: 55,             category: 'abs'     },
+      { id: 'wed_6', name: 'Leg Raises',              detail: '55 reps',         type: 'reps',  reps: 55,             category: 'abs'     },
+      { id: 'wed_7', name: 'Cross Mountain Climbers', detail: '65 reps',         type: 'reps',  reps: 65,             category: 'abs'     },
+      { id: 'wed_8', name: 'Russian Twists',          detail: '35 reps',         type: 'reps',  reps: 35,             category: 'abs',    toFailure: true },
     ]
   },
   {
@@ -77,16 +76,14 @@ const DAYS = [
     subtitle: 'Upper Body & Core',
     isRest: false,
     exercises: [
-      { id: 'thu_1',  name: 'Seated Toe Stretching Hold', detail: '20 sec · 2 sets',  type: 'timed', duration: 20,  sets: 2, category: 'stretch' },
-      { id: 'thu_2',  name: 'Cat Pose',                   detail: '1 min hold',        type: 'timed', duration: 60,  sets: 1, category: 'stretch' },
-      { id: 'thu_3',  name: 'Squats',                     detail: '30 reps',           type: 'reps',  reps: 30,             category: 'legs'    },
-      { id: 'thu_4',  name: 'Diamond Push-ups',           detail: '30 reps',           type: 'reps',  reps: 30,             category: 'push'    },
-      { id: 'thu_5',  name: 'Pike Push-ups',              detail: '35 reps',           type: 'reps',  reps: 15,             category: 'push'    },
-      { id: 'thu_6',  name: 'Declined Push-ups',          detail: '40 reps',           type: 'reps',  reps: 20,             category: 'push'    },
-      { id: 'thu_7',  name: 'Plank',                      detail: '1 min hold',        type: 'timed', duration: 60,  sets: 1, category: 'abs'     },
-      { id: 'thu_8',  name: 'Seated In-outs',             detail: '40 reps',           type: 'reps',  reps: 30,             category: 'abs'     },
-      { id: 'thu_9',  name: 'Russian Twists',             detail: '40 reps',           type: 'reps',  reps: 20,             category: 'abs'     },
-      { id: 'thu_10', name: 'Cross Mountain Climbers',    detail: '50 reps',           type: 'reps',  reps: 40,             category: 'abs'     },
+      { id: 'thu_1', name: 'Squats',                  detail: '40 reps',         type: 'reps',  reps: 40,             category: 'legs'    },
+      { id: 'thu_2', name: 'Diamond Push-ups',        detail: '45 reps',         type: 'reps',  reps: 45,             category: 'push'    },
+      { id: 'thu_3', name: 'Pike Push-ups',           detail: '25 reps',         type: 'reps',  reps: 25,             category: 'push'    },
+      { id: 'thu_4', name: 'Declined Push-ups',       detail: '35 reps',         type: 'reps',  reps: 35,             category: 'push'    },
+      { id: 'thu_5', name: 'Plank',                   detail: '1.5 min hold',    type: 'timed', duration: 90,  sets: 1, category: 'abs'     },
+      { id: 'thu_6', name: 'Seated In-outs',          detail: '55 reps',         type: 'reps',  reps: 55,             category: 'abs'     },
+      { id: 'thu_7', name: 'Russian Twists',          detail: '35 reps',         type: 'reps',  reps: 35,             category: 'abs'     },
+      { id: 'thu_8', name: 'Cross Mountain Climbers', detail: '65 reps',         type: 'reps',  reps: 65,             category: 'abs',    toFailure: true },
     ]
   },
   {
@@ -96,17 +93,15 @@ const DAYS = [
     subtitle: 'Full Upper & Core',
     isRest: false,
     exercises: [
-      { id: 'fri_1',  name: 'Toe Stretching Hold',        detail: '30 sec · 4 sets',  type: 'timed', duration: 30,  sets: 4, category: 'stretch' },
-      { id: 'fri_2',  name: 'Cat Pose',                   detail: '1 min hold',        type: 'timed', duration: 60,  sets: 1, category: 'stretch' },
-      { id: 'fri_3',  name: 'Squats',                     detail: '30 reps',           type: 'reps',  reps: 30,             category: 'legs'    },
-      { id: 'fri_4',  name: 'Diamond Push-ups',           detail: '50 reps',           type: 'reps',  reps: 30,             category: 'push'    },
-      { id: 'fri_5',  name: 'Tricep Dips',                detail: '30 reps',           type: 'reps',  reps: 20,             category: 'arms'    },
-      { id: 'fri_6',  name: 'Pike Push-ups',              detail: '35 reps',           type: 'reps',  reps: 15,             category: 'push'    },
-      { id: 'fri_7',  name: 'Plank',                      detail: '2 min hold',        type: 'timed', duration: 120, sets: 1, category: 'abs'     },
-      { id: 'fri_8',  name: 'Leg Raises',                 detail: '30 reps',           type: 'reps',  reps: 30,             category: 'abs'     },
-      { id: 'fri_9',  name: 'Seated In-outs',             detail: '30 reps',           type: 'reps',  reps: 30,             category: 'abs'     },
-      { id: 'fri_10', name: 'Cross Mountain Climbers',    detail: '40 reps',           type: 'reps',  reps: 40,             category: 'abs'     },
-      { id: 'fri_11', name: 'Russian Twists',             detail: '20 reps',           type: 'reps',  reps: 20,             category: 'abs'     },
+      { id: 'fri_1', name: 'Squats',                  detail: '40 reps',         type: 'reps',  reps: 40,             category: 'legs'    },
+      { id: 'fri_2', name: 'Diamond Push-ups',        detail: '65 reps',         type: 'reps',  reps: 65,             category: 'push'    },
+      { id: 'fri_3', name: 'Tricep Dips',             detail: '40 reps',         type: 'reps',  reps: 40,             category: 'arms'    },
+      { id: 'fri_4', name: 'Pike Push-ups',           detail: '30 reps',         type: 'reps',  reps: 30,             category: 'push'    },
+      { id: 'fri_5', name: 'Plank',                   detail: '2.5 min hold',    type: 'timed', duration: 150, sets: 1, category: 'abs'     },
+      { id: 'fri_6', name: 'Leg Raises',              detail: '45 reps',         type: 'reps',  reps: 45,             category: 'abs'     },
+      { id: 'fri_7', name: 'Seated In-outs',          detail: '45 reps',         type: 'reps',  reps: 45,             category: 'abs'     },
+      { id: 'fri_8', name: 'Cross Mountain Climbers', detail: '60 reps',         type: 'reps',  reps: 60,             category: 'abs'     },
+      { id: 'fri_9', name: 'Russian Twists',          detail: '35 reps',         type: 'reps',  reps: 35,             category: 'abs',    toFailure: true },
     ]
   },
   {
@@ -116,19 +111,18 @@ const DAYS = [
     subtitle: 'Full Intensity',
     isRest: false,
     exercises: [
-      { id: 'sat_1',  name: 'Toe Stretching Hold',        detail: '30 sec · 4 sets',  type: 'timed', duration: 30,  sets: 4, category: 'stretch' },
-      { id: 'sat_2',  name: 'Seated Toe Stretching Hold', detail: '20 sec · 2 sets',  type: 'timed', duration: 20,  sets: 2, category: 'stretch' },
-      { id: 'sat_3',  name: 'Cat Pose',                   detail: '1 min hold',        type: 'timed', duration: 60,  sets: 1, category: 'stretch' },
-      { id: 'sat_4',  name: 'Squats',                     detail: '30 reps',           type: 'reps',  reps: 30,             category: 'legs'    },
-      { id: 'sat_5',  name: 'Diamond Push-ups',           detail: '40 reps',           type: 'reps',  reps: 30,             category: 'push'    },
-      { id: 'sat_6',  name: 'Declined Push-ups',          detail: '30 reps',           type: 'reps',  reps: 20,             category: 'push'    },
-      { id: 'sat_7',  name: 'Pike Push-ups',              detail: '20 reps',           type: 'reps',  reps: 15,             category: 'push'    },
-      { id: 'sat_8',  name: 'Tricep Dips',                detail: '30 reps',           type: 'reps',  reps: 20,             category: 'arms'    },
-      { id: 'sat_9',  name: 'Plank',                      detail: '2 min hold',        type: 'timed', duration: 120, sets: 1, category: 'abs'     },
-      { id: 'sat_10', name: 'Seated In-outs',             detail: '30 reps',           type: 'reps',  reps: 30,             category: 'abs'     },
-      { id: 'sat_11', name: 'Leg Raises',                 detail: '30 reps',           type: 'reps',  reps: 30,             category: 'abs'     },
-      { id: 'sat_12', name: 'Russian Twists',             detail: '20 reps',           type: 'reps',  reps: 20,             category: 'abs'     },
-      { id: 'sat_13', name: 'Cross Mountain Climbers',    detail: '40 reps',           type: 'reps',  reps: 40,             category: 'abs'     },
+      { id: 'sat_1',  name: 'Toe Stretching Hold',        detail: '30 sec · 3 sets', type: 'timed', duration: 30,  sets: 3, category: 'stretch' },
+      { id: 'sat_2',  name: 'Seated Toe Stretching Hold',  detail: '30 sec · 3 sets', type: 'timed', duration: 30,  sets: 3, category: 'stretch' },
+      { id: 'sat_3',  name: 'Squats',                      detail: '45 reps',         type: 'reps',  reps: 45,             category: 'legs'    },
+      { id: 'sat_4',  name: 'Diamond Push-ups',            detail: '60 reps',         type: 'reps',  reps: 60,             category: 'push'    },
+      { id: 'sat_5',  name: 'Declined Push-ups',           detail: '45 reps',         type: 'reps',  reps: 45,             category: 'push'    },
+      { id: 'sat_6',  name: 'Pike Push-ups',               detail: '30 reps',         type: 'reps',  reps: 30,             category: 'push'    },
+      { id: 'sat_7',  name: 'Tricep Dips',                 detail: '45 reps',         type: 'reps',  reps: 45,             category: 'arms'    },
+      { id: 'sat_8',  name: 'Plank',                       detail: '3 min hold',      type: 'timed', duration: 180, sets: 1, category: 'abs'     },
+      { id: 'sat_9',  name: 'Seated In-outs',              detail: '50 reps',         type: 'reps',  reps: 50,             category: 'abs'     },
+      { id: 'sat_10', name: 'Leg Raises',                  detail: '50 reps',         type: 'reps',  reps: 50,             category: 'abs'     },
+      { id: 'sat_11', name: 'Russian Twists',              detail: '40 reps',         type: 'reps',  reps: 40,             category: 'abs'     },
+      { id: 'sat_12', name: 'Cross Mountain Climbers',     detail: '65 reps',         type: 'reps',  reps: 65,             category: 'abs',    toFailure: true },
     ]
   },
 ];
@@ -365,8 +359,10 @@ function buildExerciseCard(ex, done, isTimed, dayKey) {
     </button>
   ` : '';
 
+  const failureBadgeHTML = ex.toFailure ? `<span class="category-badge badge-failure">To Failure</span>` : '';
+
   return `
-    <div class="exercise-card ${done ? 'done' : ''}" data-ex-id="${ex.id}" data-day-key="${dayKey}" role="listitem">
+    <div class="exercise-card ${done ? 'done' : ''} ${ex.toFailure ? 'to-failure' : ''}" data-ex-id="${ex.id}" data-day-key="${dayKey}" role="listitem">
       <div class="exercise-check" aria-hidden="true">
         <svg class="check-icon" viewBox="0 0 12 12" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="2 6 5 9 10 3"/>
@@ -376,8 +372,9 @@ function buildExerciseCard(ex, done, isTimed, dayKey) {
         <div class="exercise-name-row">
           <span class="exercise-name">${ex.name}</span>
           <span class="category-badge ${badgeClass}">${categoryLabel}</span>
+          ${failureBadgeHTML}
         </div>
-        <div class="exercise-detail">${ex.detail}</div>
+        <div class="exercise-detail">${ex.detail}${ex.toFailure ? ' · Last set, max effort' : ''}</div>
       </div>
       ${timerBtnHTML}
     </div>
@@ -442,11 +439,13 @@ function renderTimer() {
   // Sets row
   const setsRow = document.getElementById('timer-sets-row');
   if (timerTotalSets > 1) {
-    let dotsHTML = `<span class="timer-set-label">Set ${timerCurrentSet} of ${timerTotalSets}</span>`;
+    const onLastSet = timerCurrentSet === timerTotalSets;
+    let dotsHTML = `<span class="timer-set-label">Set ${timerCurrentSet} of ${timerTotalSets}${onLastSet ? ' — to failure' : ''}</span>`;
     for (let i = 1; i <= timerTotalSets; i++) {
       let cls = 'timer-set-dot';
       if (i < timerCurrentSet) cls += ' done';
       else if (i === timerCurrentSet) cls += ' active';
+      if (i === timerTotalSets) cls += ' failure-set';
       dotsHTML += `<span class="${cls}"></span>`;
     }
     setsRow.innerHTML = dotsHTML;
@@ -469,10 +468,11 @@ function updateTimerDisplay() {
   el.textContent = display;
   el.classList.toggle('running', timerRunning);
 
+  const onLastSet = timerCurrentSet >= timerTotalSets;
   const status = document.getElementById('timer-status');
-  if (timerRunning) status.textContent = 'Running…';
+  if (timerRunning) status.textContent = onLastSet ? 'Push to failure…' : 'Running…';
   else if (timerSeconds === 0) status.textContent = timerCurrentSet < timerTotalSets ? 'Set done — rest!' : 'All sets done!';
-  else status.textContent = 'Ready';
+  else status.textContent = onLastSet ? 'Final set — go to failure' : 'Ready';
 }
 
 function updateTimerButtons() {
