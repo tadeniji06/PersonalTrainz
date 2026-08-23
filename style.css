@@ -6,20 +6,22 @@
 
 /* ── Design Tokens ── */
 :root {
-  --bg:             #000000;
-  --bg-card:        #0c0c0c;
-  --bg-card-hover:  #141414;
-  --bg-modal:       #0a0a0a;
-  --border:         #1e1e1e;
-  --border-strong:  #2e2e2e;
+  --bg:             #050505;
+  --bg-card:        #0f1014;
+  --bg-card-hover:  #16181d;
+  --bg-modal:       rgba(10, 10, 10, 0.85);
+  --modal-backdrop: rgba(0, 0, 0, 0.7);
+  --border:         #1f2128;
+  --border-strong:  #2d313c;
   --text-primary:   #ffffff;
-  --text-secondary: #888888;
-  --text-muted:     #444444;
+  --text-secondary: #9499a8;
+  --text-muted:     #4a4e59;
   --text-done:      #333333;
-  --accent:         #ffffff;
-  --radius-sm:      8px;
-  --radius-md:      14px;
-  --radius-lg:      20px;
+  --accent:         #00E5FF;
+  --accent-glow:    rgba(0, 229, 255, 0.2);
+  --radius-sm:      10px;
+  --radius-md:      16px;
+  --radius-lg:      24px;
   --header-h:       64px;
   --tabs-h:         56px;
   --safe-b:         env(safe-area-inset-bottom, 0px);
@@ -620,13 +622,16 @@ body {
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
-  background: var(--bg-modal);
-  border: 1px solid var(--border-strong);
+  background: rgba(15, 16, 20, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-bottom: none;
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   padding: 24px 24px calc(env(safe-area-inset-bottom, 16px) + 24px);
   transform: translateY(0);
   transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+  box-shadow: 0 -10px 40px var(--accent-glow);
 }
 
 .timer-handle {
